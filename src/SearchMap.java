@@ -1,22 +1,31 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class SearchMap {
 
     public static void main(String[] args) {
+        String inputFilePath = args[0];
+        String outputFilePath = args[1];
 
-        FlightMap flightMap = new FlightMap('P');
-        flightMap.addFlight('P', 'W', 200);
-        flightMap.addFlight('P', 'R', 300);
-        flightMap.addFlight('R', 'X', 200);
-        flightMap.addFlight('Q', 'X', 375);
-        flightMap.addFlight('W', 'S', 250);
-        flightMap.addFlight('S', 'T', 300);
-        flightMap.addFlight('T', 'W', 350);
-        flightMap.addFlight('W', 'Y', 500);
-        flightMap.addFlight('Y', 'Z', 450);
-        flightMap.addFlight('Y', 'R', 600);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            char origin = line.charAt(0);
+            FlightMap flightMap = new FlightMap(origin);
 
-        String result = flightMap.getRouteInfo();
-        System.out.println(result);
+            while ((line = br.readLine()) != null) {
+                String[] lineSplit = line.split(" ");
+                char departure = lineSplit[0].charAt(0);
+                char destination = lineSplit[1].charAt(0);
+                int cost = Integer.parseInt(lineSplit[2]);
+                flightMap.addFlight(departure, destination, cost);
+            }
 
+            String result = flightMap.getRouteInfo();
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-
 }
