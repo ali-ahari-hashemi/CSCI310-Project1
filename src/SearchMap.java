@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PrintWriter;
 
 public class SearchMap {
 
@@ -9,11 +10,11 @@ public class SearchMap {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
-            StringBuilder sb = new StringBuilder();
             String line = br.readLine();
             char origin = line.charAt(0);
             FlightMap flightMap = new FlightMap(origin);
 
+            // Build flight map from input file data
             while ((line = br.readLine()) != null) {
                 String[] lineSplit = line.split(" ");
                 char departure = lineSplit[0].charAt(0);
@@ -21,9 +22,14 @@ public class SearchMap {
                 int cost = Integer.parseInt(lineSplit[2]);
                 flightMap.addFlight(departure, destination, cost);
             }
+            br.close();
 
+            // Get route info from flight map and save it to the output file
             String result = flightMap.getRouteInfo();
-            System.out.println(result);
+            PrintWriter out = new PrintWriter(outputFilePath);
+            out.println(result);
+            out.close();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
