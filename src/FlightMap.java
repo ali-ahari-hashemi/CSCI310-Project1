@@ -1,8 +1,21 @@
 import java.util.*;
 
+/**
+ * FlightMap Class
+ *
+ *
+ *
+ */
 public class FlightMap {
 
-
+    /**
+     * FlightMap Constructor
+     *
+     * creates a FlightMap class with the given origin city
+     *
+     * @param originCity
+     *
+     */
     public FlightMap(char originCity) {
         this.originCity = originCity;
         this.cities = new HashSet<Character>();
@@ -11,7 +24,16 @@ public class FlightMap {
         this.flights.put(originCity, new ArrayList<Flight>());
     }
 
-
+    /**
+     * addFlight
+     *
+     * Adds a flight between the two given cities and its corresponding cost
+     *
+     * @param char departure
+     * @param char destination
+     * @param int cost
+     * @return void
+     */
     public void addFlight(char departure, char destination, int cost) {
         cities.add(departure);
         cities.add(destination);
@@ -29,6 +51,14 @@ public class FlightMap {
         }
     }
 
+
+    /**
+     * getRouteInfo
+     *
+     * Will compute routes for all destinations and the total cost of each route
+     *
+     * @return Formatted string of all route info
+     */
     public String getRouteInfo() {
         String allRouteInfo = "Destination \t Flight Route from " + Character.toString(this.originCity) + " \t Total Cost \n";
         Iterator<Character> it = this.cities.iterator();
@@ -94,18 +124,6 @@ public class FlightMap {
         }
 
         return null;
-    }
-
-    public void printFlights() {
-         Iterator it = this.flights.entrySet().iterator();
-         while(it.hasNext()) {
-             Map.Entry<Character, List<Flight>> pair = (Map.Entry)it.next();
-             System.out.println("Departure: " + pair.getKey());
-             List<Flight> flights = pair.getValue();
-             for (int i = 0; i < flights.size(); i++) {
-                 System.out.println("    Destination: " + flights.get(i).destination + " Cost: " + flights.get(i).cost);
-             }
-         }
     }
 
     private char originCity;

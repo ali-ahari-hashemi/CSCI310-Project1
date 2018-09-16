@@ -2,8 +2,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
+/**
+ * SearchMap Class
+ *
+ *
+ *
+ */
 public class SearchMap {
 
+    /**
+     * Main
+     *
+     * This is the main function that will read in data from the input file and save the routes information to the output file
+     *
+     * @return void
+     */
     public static void main(String[] args) {
         String inputFilePath = args[0];
         String outputFilePath = args[1];
