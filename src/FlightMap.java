@@ -53,6 +53,28 @@ public class FlightMap {
 
 
     /**
+     * getFlights
+     *
+     * Gets corresponding flight information for a given departure city
+     *
+     * @param char departure
+     *
+     * @return String: "Destination1 Cost1 Destination2 Cost2 etc...
+     */
+    public String getFlights(char departure) {
+        List<Flight> flights = this.flights.get(departure);
+        String result = "";
+        if (flights!=null) {
+            for (int i = 0; i < flights.size(); i++) {
+                result += flights.get(i).destination + " " + flights.get(i).cost;
+            }
+        }
+        return result;
+
+    }
+
+
+    /**
      * getRouteInfo
      *
      * Will compute routes for all destinations and the total cost of each route
@@ -60,7 +82,7 @@ public class FlightMap {
      * @return Formatted string of all route info
      */
     public String getRouteInfo() {
-        String allRouteInfo = "Destination \t Flight Route from " + Character.toString(this.originCity) + " \t Total Cost \n";
+        String allRouteInfo = "Destination\tFlight Route from " + Character.toString(this.originCity) + "\tTotal Cost\n";
         Iterator<Character> it = this.cities.iterator();
         while(it.hasNext()) {
             char destination = it.next();

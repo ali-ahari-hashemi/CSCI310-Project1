@@ -17,9 +17,29 @@
         <mkdir dir="${dist.dir}" />
     </target>
 
+    <!-- set up junit class path -->
+    <path id="classpath.test">
+        <pathelement location="lib/hamcrest-core-1.3.jar" />
+        <pathelement location="lib/junit-4.12.jar" />
+    </path>
+
     <!-- Compile the java code in src dir into build dir -->
     <target name="compile" depends="init" description="compile java sources">
-        <javac srcdir="${source.dir}" destdir="${build.dir}" />
+        <javac srcdir="${source.dir}" destdir="${build.dir}">
+            <classpath refid="classpath.test"/>
+        </javac>
+
+    </target>
+
+    <target name="test" depends="compile">
+        <junit>
+            <classpath refid="classpath.test" />
+            <formatter type="plain" usefile="false" />
+            <formatter type="plain" />
+            <batchtest>
+                <fileset dir="${build.dir}" includes="**/Test*.class" />
+            </batchtest>
+        </junit>
     </target>
 
     <!-- Compile the java code in src dir into build dir -->
